@@ -17,7 +17,7 @@ class TransationRepository implements ITransationRepository {
             })
         }
 
-        if(type === "deposit") {
+        if (type === "deposit") {
             await prisma.transaction.create({
                 data: {
                     title,
@@ -29,43 +29,75 @@ class TransationRepository implements ITransationRepository {
 
     }
 
-    async list(type?: string): Promise<Transaction[]> {
+    async list(type?: string, take?: number, skip?: number) {
 
         if (type === "deposit") {
-            const all = await prisma.transaction.findMany({
-                where: {
-                     amount:{
-                        gt: 0
-                     }
-                },
-                orderBy: {
-                    createAt: 'desc'
-                }
-            })
+            const [count, all] = await prisma.$transaction([
+                prisma.transaction.count({
+                    where: {
+                        amount: {
+                            gt: 0
+                        }
+                    },
+                }), prisma.transaction.findMany({
+                    take,
+                    skip,
+                    where: {
+                        amount: {
+                            gt: 0
+                        }
+                    },
+                    orderBy: {
+                        createAt: 'desc'
+                    },
+                })])
 
-            return all
-        }else if(type === "withdraw") {
-            const all = await prisma.transaction.findMany({
-                where: {
-                    amount: {
-                        lt: 0
+            const transaction = {
+                count,
+                all
+            }
+
+            return transaction
+        } else if (type === "withdraw") {
+            const [count, all] = await prisma.$transaction([
+                prisma.transaction.count({
+                    where: {
+                        amount: {
+                            lt: 0
+                        }
+                    },
+                }), prisma.transaction.findMany({
+                    take,
+                    skip,
+                    where: {
+                        amount: {
+                            lt: 0
+                        }
+                    },
+                    orderBy: {
+                        createAt: "desc"
                     }
-                },
-                orderBy: {
-                    createAt: "desc"
-                }
-            })
+                })])
 
-            return all
+            const transaction = {
+                count,
+                all
+            }
+
+            return transaction
         }
 
-        const all = await prisma.transaction.findMany({
-            orderBy: {
-                createAt: "desc"
-            }
-        })
+        const [count, all] = await prisma.$transaction([prisma.transaction.count(), prisma.transaction.findMany({
+            take,
+            skip
+        })])
 
-        return all
+        const transaction = {
+            count,
+            all
+        }
+
+        return transaction
     }
 
     async summary(): Promise<ISummary> {
@@ -92,9 +124,9 @@ class TransationRepository implements ITransationRepository {
         const total = totalD + totalW
 
         const summary = {
-                totalW,
-                totalD,
-                total
+            totalW,
+            totalD,
+            total
         }
 
         return summary

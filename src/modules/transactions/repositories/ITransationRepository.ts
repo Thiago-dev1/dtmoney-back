@@ -13,10 +13,17 @@ interface ISummary {
         total: number
 }
 
+interface IReponse {
+
+        count: number,
+        transaction: Transaction
+    
+}
+
 interface ITransationRepository {
     create({title, amount, category, type}: ITransactionDTO): Promise<void>
-    list(type?: string): Promise<Transaction[]>
+    list(type?: string, take?: number, skip?: number)
     summary(): Promise<ISummary>
 }
 
-export { ITransationRepository, ITransactionDTO, ISummary }
+export { ITransationRepository, ITransactionDTO, ISummary, IReponse }
