@@ -89,7 +89,10 @@ class TransationRepository implements ITransationRepository {
 
         const [count, all] = await prisma.$transaction([prisma.transaction.count(), prisma.transaction.findMany({
             take,
-            skip
+            skip,
+            orderBy: {
+                createAt: "desc"
+            }
         })])
 
         const transaction = {
