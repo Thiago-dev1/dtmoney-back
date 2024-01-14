@@ -1,4 +1,11 @@
-import { Transaction } from "@prisma/client"
+
+export type Transaction = {
+    id: string
+    title: string
+    amount: number
+    category: string
+    createAt: Date
+  }
 
 interface ITransactionDTO {
     title: string,
@@ -26,4 +33,4 @@ interface ITransationRepository {
     summary(): Promise<ISummary>
 }
 
-export { ITransationRepository, ITransactionDTO, ISummary, IReponse }
+export { IReponse, ISummary, ITransactionDTO, ITransationRepository }
