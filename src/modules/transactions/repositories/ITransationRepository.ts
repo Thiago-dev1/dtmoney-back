@@ -21,16 +21,20 @@ interface ISummary {
 }
 
 interface IReponse {
-
         count: number,
         transaction: Transaction
-    
+}
+
+interface ITableShort {
+    collum: 'title' | 'amount' | 'category' | 'createAt' 
+    direction: 'asc' | 'desc'
 }
 
 interface ITransationRepository {
     create({title, amount, category, type}: ITransactionDTO): Promise<void>
-    list(type?: string, take?: number, skip?: number)
+    list(tableShort: ITableShort, take?: number, skip?: number)
     summary(): Promise<ISummary>
 }
 
-export { IReponse, ISummary, ITransactionDTO, ITransationRepository }
+export { IReponse, ISummary, ITableShort, ITransactionDTO, ITransationRepository }
+

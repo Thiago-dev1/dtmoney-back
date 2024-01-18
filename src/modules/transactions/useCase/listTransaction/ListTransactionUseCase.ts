@@ -1,10 +1,10 @@
-import { inject, injectable } from "tsyringe"
 import { Transaction } from "@prisma/client"
+import { inject, injectable } from "tsyringe"
 
-import { ITransationRepository } from "../../repositories/ITransationRepository"
+import { ITableShort, ITransationRepository } from "../../repositories/ITransationRepository"
 
 interface IRequest {
-    type?: string,
+    tableShort?: ITableShort,
     take?: number,
     skip?: number
 }
@@ -16,11 +16,12 @@ class ListTransactionUseCase {
         private transationRepository: ITransationRepository
     ) {}
 
-    async execute({type, take, skip}:IRequest): Promise<Transaction[]> {
-        const all = await this.transationRepository.list(type, take, skip)
+    async execute({tableShort = {collum: 'createAt', direction: 'asc'}, take, skip}:IRequest): Promise<Transaction[]> {
+        const all = await this.transationRepository.list(tableShort, take, skip)
 
         return all
     }
 }
 
-export { ListTransactionUseCase }   
+export { ListTransactionUseCase }
+

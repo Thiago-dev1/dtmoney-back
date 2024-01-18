@@ -7,16 +7,23 @@ class ListTransactionController {
 
     async handle(request: Request, response: Response): Promise<Response> {
 
-        const type = request.query.type 
+    
         const take = request.query.take ? Number(request.query.take) : 10
+        const collum = request.query.collum ? request.query.collum : 'createAt'
+        const direction = request.query.direction ? request.query.direction : 'asc'
         let skip = request.query.skip ? Number(request.query.skip ): 0
+
+        const tableShort = {
+            collum,
+            direction
+        }
 
         
         
         const listTransactionController = container.resolve(ListTransactionUseCase)
 
         const all = await listTransactionController.execute({
-            type: type as string, 
+            tableShort,
             take: Number(take), 
             skip: Number(skip)
         })

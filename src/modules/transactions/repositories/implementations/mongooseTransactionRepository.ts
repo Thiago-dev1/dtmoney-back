@@ -1,6 +1,6 @@
 
 import { TransactionModel } from '../../../../models/transaction'
-import { ISummary, ITransactionDTO, ITransationRepository } from "../ITransationRepository"
+import { ISummary, ITableShort, ITransactionDTO, ITransationRepository } from "../ITransationRepository"
 
 
 class MongooseTransactionRepository  implements ITransationRepository {
@@ -24,24 +24,16 @@ class MongooseTransactionRepository  implements ITransationRepository {
           })
          }
     }
-    async list(type?: string, take?: number, skip?: number) {
-        const match = {}
+    async list(tableShort: ITableShort, take?: number, skip?: number) {
+        const sort = {}
 
-        if(type === 'deposit'){
-            match['amount'] = {
-                $gt: 0
-            }
-        }
-
-        if(type === 'withdraw'){
-            match['amount'] = {
-                $lt: 0
-            }
+        if(tableShort){
+            sort[tableShort.collum] = tableShort.direction === 'asc' ? 1 : -1
         }
 
         const [count, all] = await Promise.all([
-            TransactionModel.countDocuments(match),
-            TransactionModel.find(match).sort({createAt: 'desc'}).skip(skip).limit(take).lean()
+            TransactionModel.countDocuments(),
+            TransactionModel.find().sort(sort).skip(skip).limit(take).lean()
         ])
 
         const transaction = {
