@@ -15,6 +15,7 @@ class TransationRepository implements ITransationRepository {
         await this.repository.create({ title, amount, category, type })
     }
 
+    /** @TODO corrigir */
     async list(type?: string, take?: number, skip?: number) {
         const all = await this.repository.list(type, take, skip)
 
