@@ -1,4 +1,4 @@
-import { ISummary, ITransactionDTO, ITransationRepository } from '../ITransationRepository'
+import { ISummary, ITableShort, ITransactionDTO, ITransationRepository } from '../ITransationRepository'
 import transactionRepositoryFactory from './transactionRepositoryFactory'
 
 
@@ -15,9 +15,8 @@ class TransationRepository implements ITransationRepository {
         await this.repository.create({ title, amount, category, type, userId })
     }
 
-    /** @TODO corrigir */
-    async list(type?: string, take?: number, skip?: number) {
-        const all = await this.repository.list(type, take, skip)
+    async list(userId: string, tableShort: ITableShort, take?: number, skip?: number) {
+        const all = await this.repository.list(userId, tableShort, take, skip)
 
         return all
     }

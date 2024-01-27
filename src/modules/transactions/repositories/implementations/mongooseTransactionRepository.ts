@@ -17,7 +17,7 @@ class MongooseTransactionRepository  implements ITransationRepository {
 
         await TransactionModel.create(transaction)
     }
-    async list(tableShort: ITableShort, take?: number, skip?: number) {
+    async list(userId: string, tableShort: ITableShort, take?: number, skip?: number) {
         const sort = {}
 
         if(tableShort){
@@ -26,7 +26,9 @@ class MongooseTransactionRepository  implements ITransationRepository {
 
         const [count, all] = await Promise.all([
             TransactionModel.countDocuments(),
-            TransactionModel.find().sort(sort).skip(skip).limit(take).lean()
+            TransactionModel.find({
+                userId
+            }).sort(sort).skip(skip).limit(take).lean()
         ])
 
         const transaction = {

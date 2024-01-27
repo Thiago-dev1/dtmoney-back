@@ -16,8 +16,8 @@ class ListTransactionUseCase {
         private transationRepository: ITransationRepository
     ) {}
 
-    async execute({tableShort = {collum: 'createAt', direction: 'asc'}, take, skip}:IRequest): Promise<Transaction[]> {
-        const all = await this.transationRepository.list(tableShort, take, skip)
+    async execute(userId: string, {tableShort = {collum: 'createAt', direction: 'asc'}, take, skip}:IRequest): Promise<Transaction[]> {
+        const all = await this.transationRepository.list(userId, tableShort, take, skip)
 
         return all
     }
