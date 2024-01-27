@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe"
 
 
-import { ITransationRepository,ISummary } from "../../repositories/ITransationRepository"
+import { ISummary, ITransationRepository } from "../../repositories/ITransationRepository"
 
 
 
@@ -12,8 +12,8 @@ class SummaryUseCase {
         private transationRepository: ITransationRepository
     ){}
 
-    async execute(): Promise<ISummary> {
-        const summary = await this.transationRepository.summary()
+    async execute(userId: string): Promise<ISummary> {
+        const summary = await this.transationRepository.summary(userId)
 
         return summary
     }

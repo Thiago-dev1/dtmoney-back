@@ -21,8 +21,8 @@ class TransationRepository implements ITransationRepository {
         return all
     }
 
-    async summary(): Promise<ISummary> {
-        const summary = await this.repository.summary()
+    async summary(userId: string): Promise<ISummary> {
+        const summary = await this.repository.summary(userId)
 
         return summary
     }

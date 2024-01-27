@@ -39,10 +39,11 @@ class MongooseTransactionRepository  implements ITransationRepository {
         return transaction
         
     }
-    async summary(): Promise<ISummary> {
+    async summary(userId: string): Promise<ISummary> {
         const deposit = await TransactionModel.aggregate([
             {
                 $match: {
+                    userId,
                     amount: {
                         $gt: 0
                     }
@@ -61,6 +62,7 @@ class MongooseTransactionRepository  implements ITransationRepository {
         const withdraw = await TransactionModel.aggregate([
             {
                 $match: {
+                    userId,
                     amount: {
                         $lt: 0
                     }

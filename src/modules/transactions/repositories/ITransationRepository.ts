@@ -35,7 +35,7 @@ interface ITableShort {
 interface ITransationRepository {
     create({title, amount, category, type, userId}: ITransactionDTO): Promise<void>
     list(userId: string, tableShort: ITableShort, take?: number, skip?: number)
-    summary(): Promise<ISummary>
+    summary(userId: string): Promise<ISummary>
 }
 
 export { IReponse, ISummary, ITableShort, ITransactionDTO, ITransationRepository }

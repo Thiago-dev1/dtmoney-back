@@ -14,7 +14,7 @@ const summaryController = new SummaryController()
 
 transactionRoutes.post("/create", ensureAuthenticated, createTransactionController.handle)
 transactionRoutes.get("/", ensureAuthenticated, listTransactionController.handle)
-transactionRoutes.get("/summary", summaryController.handle)
+transactionRoutes.get("/summary", ensureAuthenticated, summaryController.handle)
 
 export { transactionRoutes }
 
