@@ -5,12 +5,13 @@ import IUser from "../../../../models/interfaces/IUser"
 import { CreateUserUseCase } from "./CreateUserUseCase"
 
 class CreateUserController {
-    async handle({email, name, typeLogin, password, picture}: IUser): Promise<void> {
+    async handle({email, name, typeLogin, password, picture}: IUser): Promise<IUser> {
         try {
             
         const createUserUseCase =  container.resolve(CreateUserUseCase)
 
-        await createUserUseCase.execute({email, name, typeLogin, password, picture})
+        const user =  await createUserUseCase.execute({email, name, typeLogin, password, picture})
+        return user
         } catch (error) {
             console.log(`[CreateUserController] -> [handle] -> ${error}`)  
             

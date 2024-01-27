@@ -15,10 +15,11 @@ class CreateUserUseCase {
             const userAlreadyExists = await this.userRepository.findByEmail(email)
 
             if (userAlreadyExists) {
-                throw new Error("User already exists")
+                return userAlreadyExists
             }
 
-            await this.userRepository.create({ email, name, typeLogin, password, picture })
+          const user =  await this.userRepository.create({ email, name, typeLogin, password, picture })
+          return user
         } catch (error) {
             console.log(`[CreateUserUseCase] -> [execute] -> ${error}`)  
              throw new Error(error)

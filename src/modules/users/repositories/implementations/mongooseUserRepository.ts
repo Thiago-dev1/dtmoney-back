@@ -4,8 +4,14 @@ import { UserModal } from '../../../../models/user'
 import { IUserRepository } from '../IUserRepository'
 
 class MongooseUserRepository  implements IUserRepository {
-    async create({ email, name, typeLogin, password, picture }: IUser): Promise<void> {
-        await UserModal.create({ email, name, typeLogin, password, picture })
+    async findById(id: string): Promise<IUser> {
+        const user  = await UserModal.findById(id)
+        return user
+    }
+    async create({ email, name, typeLogin, password, picture }: IUser): Promise<IUser> {
+       const user =  await UserModal.create({ email, name, typeLogin, password, picture })
+
+        return user 
     }
     async findByEmail(email: string): Promise<IUser> {
         const userEmail = UserModal.findOne({ email })

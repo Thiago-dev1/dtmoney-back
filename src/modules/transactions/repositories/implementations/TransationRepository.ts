@@ -11,8 +11,8 @@ class TransationRepository implements ITransationRepository {
         this.repository = transactionRepositoryFactory.createRepository('mongoose')
     }
 
-    async create({ title, amount, category, type }: ITransactionDTO): Promise<void> {
-        await this.repository.create({ title, amount, category, type })
+    async create({ title, amount, category, type, userId }: ITransactionDTO): Promise<void> {
+        await this.repository.create({ title, amount, category, type, userId })
     }
 
     /** @TODO corrigir */

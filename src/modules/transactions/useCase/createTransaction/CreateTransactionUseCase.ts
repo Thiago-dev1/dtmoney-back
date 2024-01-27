@@ -1,7 +1,7 @@
 import "reflect-metadata"
 import { inject, injectable } from "tsyringe"
 
-import { ITransationRepository, ITransactionDTO } from "../../repositories/ITransationRepository"
+import { ITransactionDTO, ITransationRepository } from "../../repositories/ITransationRepository"
 
 
 @injectable()
@@ -11,8 +11,8 @@ class CreateTransactionUseCase {
         private transationRepository: ITransationRepository
     ) {}
 
-    async execute({title, category, amount, type}: ITransactionDTO) {
-        await this.transationRepository.create({title, amount, category, type})
+    async execute({title, category, amount, type, userId}: ITransactionDTO) {
+        await this.transationRepository.create({title, amount, category, type, userId})
     }
 }
 

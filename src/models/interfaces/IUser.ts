@@ -4,5 +4,5 @@ export default interface IUser {
     picture?: string
     typeLogin: 'google' | 'email' | 'github' | 'facebook' | 'twitter' | 'linkedin'
     password?: string
-    id?: string
+    _id?: string
 }

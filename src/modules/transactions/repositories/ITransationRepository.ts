@@ -4,14 +4,16 @@ export type Transaction = {
     title: string
     amount: number
     category: string
-    createAt: Date
+    createAt: Date,
+    userId: string,
   }
 
 interface ITransactionDTO {
     title: string,
     amount: number,
     category: string,
-    type: string
+    type: string,
+    userId: string
 }
 
 interface ISummary {
@@ -31,7 +33,7 @@ interface ITableShort {
 }
 
 interface ITransationRepository {
-    create({title, amount, category, type}: ITransactionDTO): Promise<void>
+    create({title, amount, category, type, userId}: ITransactionDTO): Promise<void>
     list(tableShort: ITableShort, take?: number, skip?: number)
     summary(): Promise<ISummary>
 }

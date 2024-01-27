@@ -4,25 +4,18 @@ import { ISummary, ITableShort, ITransactionDTO, ITransationRepository } from ".
 
 
 class MongooseTransactionRepository  implements ITransationRepository {
-    async create({ title, amount, category, type }: ITransactionDTO): Promise<void> {
+    async create({ title, amount, category, type, userId }: ITransactionDTO, ): Promise<void> {
         console.log(`[MongooseTransactionRepository] - create - ${title} - ${amount} - ${category} - ${type}`)
 
-       if(type === 'withdraw'){
-           await TransactionModel.create({
-               title,
-               amount: -amount,
-               category,
-               type
-           })
-       }
-         if(type === 'deposit'){
-          await TransactionModel.create({
-                title,
-                amount,
-                category,
-                type
-          })
-         }
+        let transaction = {
+            title,
+            amount: type === 'withdraw' ? -amount : amount,
+            category,
+            type,
+            userId
+        }
+
+        await TransactionModel.create(transaction)
     }
     async list(tableShort: ITableShort, take?: number, skip?: number) {
         const sort = {}

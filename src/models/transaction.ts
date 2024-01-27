@@ -10,7 +10,11 @@ const schema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    type: String
+    type: String,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }
 })
 
 // o mongoose irá criar uma collection com o nome transactions

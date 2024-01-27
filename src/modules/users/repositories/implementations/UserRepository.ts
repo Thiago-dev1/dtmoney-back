@@ -9,8 +9,12 @@ class UserRepository implements IUserRepository {
     constructor() {
         this.repository = UserRepositoryFactory.createRepository('mongoose')
     }
-    async create({ email, name, typeLogin, password, picture }: IUser): Promise<void> {
-        await this.repository.create({ email, name, typeLogin, password, picture })
+    findById(id: string): Promise<IUser> {
+        return this.repository.findById(id)
+    }
+    async create({ email, name, typeLogin, password, picture, _id }: IUser): Promise<IUser> {
+      const user = await this.repository.create({ email, name, typeLogin, password, picture })
+        return user
     }
     findByEmail(email: string): Promise<IUser> {
         return this.repository.findByEmail(email)

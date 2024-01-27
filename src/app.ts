@@ -8,6 +8,9 @@ import { router } from "./routes/index"
 
 const app = express()
 
+
+// const userRepository = container.resolve(UserRepository);
+
 app.use(express.json())
 app.use(cors())
 
