@@ -1,14 +1,15 @@
-import cors from "cors"
-import express from "express"
-import "reflect-metadata"
+import dotenv from 'dotenv'
 
-import "./shared/container"
+import cors from 'cors'
+import express from 'express'
+import 'reflect-metadata'
 
-import { router } from "./routes/index"
+import './shared/container'
+
+import { router } from './routes/index'
 
 const app = express()
-
-
+dotenv.config() // Load environment variables from .env file
 // const userRepository = container.resolve(UserRepository);
 
 app.use(express.json())

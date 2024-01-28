@@ -1,8 +1,8 @@
-import { sign } from "jsonwebtoken";
+import { sign } from 'jsonwebtoken'
 
 export function generateToken(email: string, idUser: string) {
-    return sign({}, process.env.JWT_SECRET, {
-        subject: `${idUser}`,
-        expiresIn: "1d"
-    });
+	return sign({}, process.env.JWT_SECRET, {
+		subject: `${idUser}`,
+		expiresIn: '1d',
+	})
 }

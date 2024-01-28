@@ -1,42 +1,53 @@
-
 export type Transaction = {
-    id: string
-    title: string
-    amount: number
-    category: string
-    createAt: Date,
-    userId: string,
-  }
+	id: string
+	title: string
+	amount: number
+	category: string
+	createAt: Date
+	userId: string
+}
 
 interface ITransactionDTO {
-    title: string,
-    amount: number,
-    category: string,
-    type: string,
-    userId: string
+	title: string
+	amount: number
+	category: string
+	type: string
+	userId: string
 }
 
 interface ISummary {
-        totalW: number,
-        totalD: number,
-        total: number
+	totalW: number
+	totalD: number
+	total: number
 }
 
 interface IReponse {
-        count: number,
-        transaction: Transaction
+	count: number
+	transaction: Transaction
 }
 
 interface ITableShort {
-    collum: 'title' | 'amount' | 'category' | 'createAt' 
-    direction: 'asc' | 'desc'
+	collum: 'title' | 'amount' | 'category' | 'createAt'
+	direction: 'asc' | 'desc'
 }
 
 interface ITransationRepository {
-    create({title, amount, category, type, userId}: ITransactionDTO): Promise<void>
-    list(userId: string, tableShort: ITableShort, take?: number, skip?: number)
-    summary(userId: string): Promise<ISummary>
+	create({
+		title,
+		amount,
+		category,
+		type,
+		userId,
+	}: ITransactionDTO): Promise<void>
+	list(userId: string, tableShort: ITableShort, take?: number, skip?: number)
+	summary(userId: string): Promise<ISummary>
 }
 
-export { IReponse, ISummary, ITableShort, ITransactionDTO, ITransationRepository }
-
+export {
+	IReponse,
+	ISummary,
+	ITableShort,
+	ITransactionDTO,
+	ITransationRepository
+}
+//
