@@ -1,0 +1,9 @@
+import ICategory from '../../../models/interfaces/ICategory'
+
+export default interface ICategoryRepository {
+	create(title: string): Promise<void>
+	list(): Promise<ICategory[]>
+	// delete(id: string): Promise<void>
+	// update(id: string, title: string): Promise<void>
+	// findById(id: string): Promise<ICategory>
+}
