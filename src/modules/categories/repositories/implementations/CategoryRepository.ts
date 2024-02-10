@@ -13,6 +13,10 @@ class CategoryRepository implements ICategoryRepository {
 	list(): Promise<ICategory[]> {
 		return this.repository.list()
 	}
+
+	getByTitle(title: string): Promise<ICategory> {
+		return this.repository.getByTitle(title)
+	}
 }
 
 export { CategoryRepository }

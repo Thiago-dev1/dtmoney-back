@@ -4,7 +4,11 @@ import ICategory from './interfaces/ICategory'
 // terá que ser criado um schema para o mongoose, com os mesmos campos do prisma
 const schema = new mongoose.Schema(
 	{
-		title: String,
+		title: {
+			type: String,
+			required: true,
+			unique: true,
+		},
 	},
 	{
 		timestamps: true,

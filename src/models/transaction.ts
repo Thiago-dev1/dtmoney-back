@@ -5,7 +5,10 @@ import { Transaction } from '../modules/transactions/repositories/ITransationRep
 const schema = new mongoose.Schema({
 	title: String,
 	amount: Number,
-	category: String,
+	category: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Category',
+	},
 	createdAt: {
 		type: Date,
 		default: Date.now,

@@ -1,6 +1,7 @@
 import 'reflect-metadata'
-import { inject, injectable } from 'tsyringe'
+import { container, inject, injectable } from 'tsyringe'
 
+import { CreateCategoryUseCase } from '../../../categories/useCase/createCategory/CreateCategoryUseCase'
 import {
 	ITransactionDTO,
 	ITransationRepository,
@@ -14,10 +15,14 @@ class CreateTransactionUseCase {
 	) {}
 
 	async execute({ title, category, amount, type, userId }: ITransactionDTO) {
+		const createCategoryUseCase = container.resolve(CreateCategoryUseCase)
+
+		const categoryExists = await createCategoryUseCase.execute(category)
+
 		await this.transationRepository.create({
 			title,
 			amount,
-			category,
+			category: categoryExists._id,
 			type,
 			userId,
 		})
