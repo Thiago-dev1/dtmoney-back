@@ -1,11 +1,11 @@
 import { Request, Response, Router } from 'express'
 
+import { container } from 'tsyringe'
 import { verifyGoogleToken } from '../middlewares/verifyGoogleToken'
-import { CreateUserController } from '../modules/users/useCase/createUser/CreateUserController'
-import { generateToken } from '../services/generateToken'
+import { AuthenticateUserUseCase } from '../modules/users/useCase/authenticateUser/authenticateUserUseCase'
+import { GoogleAuthenticate } from '../services/authenticate/GoogleAuthenticate'
 
 const authRoutes = Router()
-const createUserController = new CreateUserController()
 
 authRoutes.post(
 	'/google',
@@ -19,18 +19,17 @@ async function loginGoogle(
 	request: Request,
 	response: Response,
 ): Promise<void> {
-	const { name, email, picture } = request.userGoogle // Assume that verifyGoogleToken middleware adds user to request.
+	const { email } = request.userGoogle
 
 	try {
-		const user = await createUserController.handle({
-			email,
-			name,
-			typeLogin: 'google',
-			password: '',
-			picture,
-		})
-		const token = generateToken(user.email, user._id)
-		response.status(201).json({ token, user: { name, email, picture } })
+		const googleAuthenticate = container.resolve(GoogleAuthenticate)
+		const authenticateUserUseCase = new AuthenticateUserUseCase(
+			googleAuthenticate,
+		)
+
+		const token = await authenticateUserUseCase.execute(email, '')
+
+		response.status(201).json({ token, user: { email } })
 	} catch (error) {
 		console.error(`[authRoutes] -> [post] -> [google] -> ${error}`)
 	}

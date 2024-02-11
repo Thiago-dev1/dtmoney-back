@@ -25,6 +25,10 @@ const schema = new mongoose.Schema({
 		type: String,
 		required: false,
 	},
+	spreadsheetId: {
+		type: String,
+		required: false,
+	},
 })
 
 // o mongoose irá criar uma collection com o nome transactions

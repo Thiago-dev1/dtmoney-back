@@ -48,6 +48,7 @@ class MongooseTransactionRepository implements ITransationRepository {
 				.sort(sort)
 				.skip(skip)
 				.limit(take)
+				.populate('category', 'title')
 				.lean(),
 		])
 

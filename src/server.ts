@@ -3,7 +3,7 @@ import conn from './database/mongodb/conn'
 
 if (process.env.DATA_BASE === 'mongoose') {
 	conn()
-		.then(() => {
+		.then(async () => {
 			app.emit('pronto')
 		})
 		.catch((err) => console.log(err))

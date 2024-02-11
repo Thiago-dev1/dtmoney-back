@@ -7,11 +7,11 @@ class CategoryRepository implements ICategoryRepository {
 	constructor() {
 		this.repository = categoryRepositoryFactory.createRepository('mongoose')
 	}
-	create(title: string): Promise<void> {
+	create(title: string): Promise<ICategory> {
 		return this.repository.create(title)
 	}
-	list(): Promise<ICategory[]> {
-		return this.repository.list()
+	listAll(): Promise<ICategory[]> {
+		return this.repository.listAll()
 	}
 
 	getByTitle(title: string): Promise<ICategory> {

@@ -11,7 +11,7 @@ class MongooseCategoryRepository implements ICategoryRepository {
 		return CategoryModel.findOne({ title })
 	}
 
-	list(): Promise<ICategory[]> {
+	listAll(): Promise<ICategory[]> {
 		return CategoryModel.find()
 	}
 }

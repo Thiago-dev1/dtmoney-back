@@ -13,7 +13,11 @@ const schema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	type: String,
+	type: {
+		enum: ['deposit', 'withdraw'],
+		type: String,
+		required: true,
+	},
 	userId: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
