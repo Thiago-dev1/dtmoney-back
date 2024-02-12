@@ -24,7 +24,13 @@ class CreateUserController {
 
 			console.log(`[CreateUserController] -> [handle] -> ${user.email}`)
 
-			return response.status(201)
+			return response.status(201).json({
+				user: {
+					email: user.email,
+					name: user.name,
+					picture: user.picture,
+				},
+			})
 		} catch (error) {
 			console.log(`[CreateUserController] -> [handle] -> ${error}`)
 

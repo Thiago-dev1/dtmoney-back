@@ -1,8 +1,10 @@
 import { hash } from 'bcrypt'
 import 'reflect-metadata'
+
 import { inject, injectable } from 'tsyringe'
 import IUser from '../../../../models/interfaces/IUser'
 import { IUserRepository } from '../../../../modules/users/repositories/IUserRepository'
+import { CreateUserValidation } from '../../utils/validations/createUser'
 
 interface IRequest extends IUser {
 	confirmpassword?: string
@@ -11,7 +13,9 @@ interface IRequest extends IUser {
 @injectable()
 class CreateUserUseCase {
 	constructor(
-		@inject('UserRepository')
+		@inject('CreateUserValidation')
+		private createUserValidation: CreateUserValidation,
+		@inject('UserRepository') // nesse caso está mapeado no container shared com o nome 'UserRepository'
 		private userRepository: IUserRepository,
 	) {}
 
@@ -24,17 +28,12 @@ class CreateUserUseCase {
 		confirmpassword,
 	}: IRequest) {
 		try {
-			if (typeLogin === 'email' && password !== confirmpassword)
-				throw new Error('Senhas não conferem')
-
-			const userAlreadyExists =
-				await this.userRepository.findByEmail(email)
-
-			if (typeLogin != 'email' && userAlreadyExists)
-				return userAlreadyExists
-
-			if (typeLogin === 'email' && userAlreadyExists)
-				throw new Error('Usuário já existe')
+			await this.createUserValidation.validateUserCreation({
+				email,
+				password,
+				confirmpassword,
+				typeLogin,
+			})
 
 			let hashPassword = password || ''
 			if (typeLogin === 'email') hashPassword = await hash(password, 8)

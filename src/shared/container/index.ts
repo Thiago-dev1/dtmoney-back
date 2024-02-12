@@ -8,7 +8,13 @@ import { UserRepository } from '../../modules/users/repositories/implementations
 import ICategoryRepository from '../../modules/categories/repositories/ICategoryRepository'
 import { CategoryRepository } from '../../modules/categories/repositories/implementations/CategoryRepository'
 
+import { CreateUserValidation } from '../../modules/users/utils/validations/createUser'
 import './services/index'
+
+container.registerSingleton<CreateUserValidation>(
+	'CreateUserValidation',
+	CreateUserValidation,
+)
 
 container.registerSingleton<ITransationRepository>(
 	'TransationRepository',
