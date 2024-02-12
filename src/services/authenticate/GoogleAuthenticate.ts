@@ -1,10 +1,9 @@
-import { inject, injectable } from 'tsyringe'
+import { container, inject, injectable } from 'tsyringe'
 import { IUserRepository } from '../../modules/users/repositories/IUserRepository'
-import { CreateUserController } from '../../modules/users/useCase/createUser/CreateUserController'
 import { generateToken } from '../generateToken'
 import IAuthenticate from './interfaces/IAuthenticate'
 
-const createUserController = new CreateUserController()
+import { CreateUserUseCase } from '../../modules/users/useCase/createUser/CreateUserUseCase'
 
 @injectable()
 class GoogleAuthenticate implements IAuthenticate {
@@ -21,12 +20,12 @@ class GoogleAuthenticate implements IAuthenticate {
 			return token
 		}
 
-		user = await createUserController.handle({
+		const createUserUseCase = container.resolve(CreateUserUseCase)
+
+		user = await createUserUseCase.execute({
 			email,
-			name: email,
+			name: email.split('@')[0],
 			typeLogin: 'google',
-			password: '',
-			picture: '',
 		})
 
 		const token = generateToken(user.email, user._id)
