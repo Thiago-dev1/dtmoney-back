@@ -1,31 +1,36 @@
 import { container } from 'tsyringe'
 
-import IUser from '../../../../models/interfaces/IUser'
+import { Request, Response } from 'express'
 import { CreateUserUseCase } from './CreateUserUseCase'
 
 class CreateUserController {
-	async handle({
-		email,
-		name,
-		typeLogin,
-		password,
-		picture,
-	}: IUser): Promise<IUser> {
+	async handle(request: Request, response: Response): Promise<Response> {
 		try {
+			const { email, name, password, picture, confirmpassword } =
+				request.body
+
+			console.log(`[CreateUserController] -> [handle] -> criar ${email}`)
+
 			const createUserUseCase = container.resolve(CreateUserUseCase)
 
 			const user = await createUserUseCase.execute({
 				email,
 				name,
-				typeLogin,
+				typeLogin: 'email',
 				password,
 				picture,
+				confirmpassword,
 			})
-			return user
+
+			console.log(`[CreateUserController] -> [handle] -> ${user.email}`)
+
+			return response.status(201)
 		} catch (error) {
 			console.log(`[CreateUserController] -> [handle] -> ${error}`)
 
-			throw new Error(error)
+			return response
+				.status(400)
+				.json({ message: error.message || 'Unexpected error.' })
 		}
 	}
 }
