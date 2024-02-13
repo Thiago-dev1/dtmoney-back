@@ -25,7 +25,7 @@ class MongooseUserRepository implements IUserRepository {
 		return user
 	}
 	async findByEmail(email: string): Promise<IUser> {
-		const userEmail = await UserModal.findOne({ email })
+		const userEmail = await UserModal.findOne({ email }).lean()
 		return userEmail
 	}
 }

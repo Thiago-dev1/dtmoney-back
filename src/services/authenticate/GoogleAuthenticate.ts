@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { container, inject, injectable } from 'tsyringe'
 import { IUserRepository } from '../../modules/users/repositories/IUserRepository'
 import { generateToken } from '../generateToken'
