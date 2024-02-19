@@ -8,6 +8,9 @@ import { UserRepository } from '../../modules/users/repositories/implementations
 import ICategoryRepository from '../../modules/categories/repositories/ICategoryRepository'
 import { CategoryRepository } from '../../modules/categories/repositories/implementations/CategoryRepository'
 
+import IRequestLogRepository from '../../modules/requestLog/repositories/IRequestLogRepository'
+import { RequestLogRepository } from '../../modules/requestLog/repositories/implementations/RequestLogRepository'
+
 import { CreateUserValidation } from '../../modules/users/utils/validations/createUser'
 import './services/index'
 
@@ -24,6 +27,11 @@ container.registerSingleton<ITransationRepository>(
 container.registerSingleton<ICategoryRepository>(
 	'CategoryRepository',
 	CategoryRepository,
+)
+
+container.registerSingleton<IRequestLogRepository>(
+	'RequestLogRepository',
+	RequestLogRepository,
 )
 
 container.registerSingleton<IUserRepository>('UserRepository', UserRepository)

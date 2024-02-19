@@ -25,7 +25,11 @@ transactionRoutes.get(
 )
 transactionRoutes.get('/summary', ensureAuthenticated, summaryController.handle)
 
-transactionRoutes.get('/update-sheets', updateSheetsController.handle)
+transactionRoutes.get(
+	'/update-sheets',
+	ensureAuthenticated,
+	updateSheetsController.handle,
+)
 
 export { transactionRoutes }
 //

@@ -8,7 +8,9 @@ class UpdateSheetsController {
 
 		const updateSheetsUseCase = container.resolve(UpdateSheetsUseCase)
 
-		const sheets = await updateSheetsUseCase.execute()
+		const user = request.userGoogle
+
+		const sheets = await updateSheetsUseCase.execute(user._id)
 		console.log(sheets)
 	}
 }

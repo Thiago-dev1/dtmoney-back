@@ -12,9 +12,7 @@ class UpdateSheetsUseCase {
 		private googleSheets: GoogleSheets,
 	) {}
 
-	async execute() {
-		const userId = '65b647d4ade91310cc6cdd61' // id do usuário logado, colocar como parâmetro
-
+	async execute(userId: string) {
 		const transactions = await this.transationRepository.list(userId, {
 			collum: 'createAt',
 			direction: 'asc',
