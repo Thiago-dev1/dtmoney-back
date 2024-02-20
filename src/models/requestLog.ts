@@ -24,7 +24,7 @@ const schema = new mongoose.Schema({
 
 schema.index({ userId: 1, request: 1 }, { unique: true })
 
-const RequestLogModel = mongoose.model<IRequestLog>('Category', schema)
+const RequestLogModel = mongoose.model<IRequestLog>('RequestLog', schema)
 
 export { RequestLogModel }
 //
