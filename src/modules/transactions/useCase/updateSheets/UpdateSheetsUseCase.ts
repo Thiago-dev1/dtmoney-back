@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 import { GoogleSheets } from '../../../../services/sheets/googleSheets'
+import dateUtil from '../../../../utils/date'
 import { ITransactionRepository } from '../../repositories/ITransactionRepository'
 
 @injectable()
@@ -28,7 +29,7 @@ class UpdateSheetsUseCase {
 				transaction.title,
 				transaction.amount,
 				transaction.category.title,
-				String(transaction.createdAt),
+				dateUtil.formatDate(transaction.createdAt),
 				transaction.type,
 			]
 		})
