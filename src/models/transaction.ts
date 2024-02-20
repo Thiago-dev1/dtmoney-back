@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { Transaction } from '../modules/transactions/repositories/ITransationRepository'
+import { Transaction } from '../modules/transactions/repositories/ITransactionRepository'
 
 // terá que ser criado um schema para o mongoose, com os mesmos campos do prisma
 const schema = new mongoose.Schema({

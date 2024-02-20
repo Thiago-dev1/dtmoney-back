@@ -1,7 +1,7 @@
 import { container } from 'tsyringe'
 
-import { ITransationRepository } from '../../modules/transactions/repositories/ITransationRepository'
-import { TransationRepository } from '../../modules/transactions/repositories/implementations/TransationRepository'
+import { ITransactionRepository } from '../../modules/transactions/repositories/ITransactionRepository'
+import { TransactionRepository } from '../../modules/transactions/repositories/implementations/TransactionRepository'
 import { IUserRepository } from '../../modules/users/repositories/IUserRepository'
 import { UserRepository } from '../../modules/users/repositories/implementations/UserRepository'
 
@@ -19,9 +19,9 @@ container.registerSingleton<CreateUserValidation>(
 	CreateUserValidation,
 )
 
-container.registerSingleton<ITransationRepository>(
-	'TransationRepository',
-	TransationRepository,
+container.registerSingleton<ITransactionRepository>(
+	'TransactionRepository',
+	TransactionRepository,
 )
 
 container.registerSingleton<ICategoryRepository>(

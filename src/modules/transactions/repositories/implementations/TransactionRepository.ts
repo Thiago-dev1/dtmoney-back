@@ -2,12 +2,12 @@ import {
 	ISummary,
 	ITableShort,
 	ITransactionDTO,
-	ITransationRepository,
-} from '../ITransationRepository'
+	ITransactionRepository,
+} from '../ITransactionRepository'
 import transactionRepositoryFactory from './transactionRepositoryFactory'
 
-class TransationRepository implements ITransationRepository {
-	private repository: ITransationRepository
+class TransactionRepository implements ITransactionRepository {
+	private repository: ITransactionRepository
 
 	constructor() {
 		this.repository =
@@ -41,5 +41,5 @@ class TransationRepository implements ITransationRepository {
 		return summary
 	}
 }
-export { TransationRepository }
+export { TransactionRepository }
 //

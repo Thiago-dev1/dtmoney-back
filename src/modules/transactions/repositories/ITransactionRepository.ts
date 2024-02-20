@@ -40,7 +40,7 @@ interface IResponseList {
 	count: number
 }
 
-interface ITransationRepository {
+interface ITransactionRepository {
 	create({
 		title,
 		amount,
@@ -62,6 +62,6 @@ export {
 	ISummary,
 	ITableShort,
 	ITransactionDTO,
-	ITransationRepository
+	ITransactionRepository,
 }
 //

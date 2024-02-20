@@ -3,10 +3,10 @@ import {
 	ISummary,
 	ITableShort,
 	ITransactionDTO,
-	ITransationRepository,
-} from '../ITransationRepository'
+	ITransactionRepository,
+} from '../ITransactionRepository'
 
-class MongooseTransactionRepository implements ITransationRepository {
+class MongooseTransactionRepository implements ITransactionRepository {
 	async create({
 		title,
 		amount,

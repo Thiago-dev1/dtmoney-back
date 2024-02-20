@@ -1,10 +1,10 @@
-import { ITransationRepository } from '../ITransationRepository'
+import { ITransactionRepository } from '../ITransactionRepository'
 import { MongooseTransactionRepository } from './mongooseTransactionRepository'
 
 class TransactionRepositoryFactory {
 	static createRepository(
 		type: 'prisma' | 'mongoose',
-	): ITransationRepository {
+	): ITransactionRepository {
 		if (type === 'prisma') {
 			// return new PrismaTransactionRepository()
 			console.log('prisma')

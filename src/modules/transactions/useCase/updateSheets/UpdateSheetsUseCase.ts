@@ -1,19 +1,19 @@
 import { inject, injectable } from 'tsyringe'
 import { GoogleSheets } from '../../../../services/sheets/googleSheets'
-import { ITransationRepository } from '../../repositories/ITransationRepository'
+import { ITransactionRepository } from '../../repositories/ITransactionRepository'
 
 @injectable()
 class UpdateSheetsUseCase {
 	constructor(
-		@inject('TransationRepository')
-		private transationRepository: ITransationRepository,
+		@inject('TransactionRepository')
+		private transactionRepository: ITransactionRepository,
 
 		@inject('GoogleSheets')
 		private googleSheets: GoogleSheets,
 	) {}
 
 	async execute(userId: string) {
-		const transactions = await this.transationRepository.list(userId, {
+		const transactions = await this.transactionRepository.list(userId, {
 			collum: 'createAt',
 			direction: 'asc',
 		})

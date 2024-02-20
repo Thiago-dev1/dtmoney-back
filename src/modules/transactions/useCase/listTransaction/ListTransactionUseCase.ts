@@ -3,8 +3,8 @@ import { inject, injectable } from 'tsyringe'
 
 import {
 	ITableShort,
-	ITransationRepository,
-} from '../../repositories/ITransationRepository'
+	ITransactionRepository,
+} from '../../repositories/ITransactionRepository'
 
 interface IRequest {
 	tableShort?: ITableShort
@@ -15,8 +15,8 @@ interface IRequest {
 @injectable()
 class ListTransactionUseCase {
 	constructor(
-		@inject('TransationRepository')
-		private transationRepository: ITransationRepository,
+		@inject('TransactionRepository')
+		private transactionRepository: ITransactionRepository,
 	) {}
 
 	async execute(
@@ -27,7 +27,7 @@ class ListTransactionUseCase {
 			skip,
 		}: IRequest,
 	): Promise<Transaction[]> {
-		const all = await this.transationRepository.list(
+		const all = await this.transactionRepository.list(
 			userId,
 			tableShort,
 			take,
