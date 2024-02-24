@@ -7,9 +7,11 @@ class ListTransactionController {
 	async handle(request: Request, response: Response): Promise<Response> {
 		const userId = request.userGoogle._id
 		const take = request.query.take ? Number(request.query.take) : 10
-		const collum = request.query.collum ? request.query.collum : 'createAt'
+		const collum = request.query.collum
+			? String(request.query.collum)
+			: 'createAt'
 		const direction = request.query.direction
-			? request.query.direction
+			? String(request.query.direction)
 			: 'asc'
 		const skip = request.query.skip ? Number(request.query.skip) : 0
 

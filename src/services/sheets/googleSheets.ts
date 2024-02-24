@@ -24,7 +24,13 @@ class GoogleSheets {
 		console.log(response.data)
 	}
 
-	async writeSheet(data: any[]) {
+	async writeSheet(
+		data: any[],
+		spreadsheetId: string,
+		range: string,
+		tabName: string,
+		valueInputOption: 'RAW' | 'USER_ENTERED' = 'RAW',
+	) {
 		const sheets = await this.authSheets()
 
 		const values = data
@@ -33,18 +39,14 @@ class GoogleSheets {
 			values,
 		}
 
-		// fazer o range ser dinâmico para sempre escrever o tamanho correto
-
-		const length = data.length
-
 		// deverá colocar do A:2 até o tamanho do array e E:2 até o tamanho do array
-		const range = `test!A2:E${length + 1}`
+		// const range = `test!A2:E${length + 1}`
 
 		const response = await sheets.spreadsheets.values.update({
 			// Substitua pelo ID do seu Google Sheets e pelo range que deseja escrever
-			spreadsheetId: '1Rt8IYf504YoN3oOdGjynDA1-tuxIciygALhja5iCtmQ', // ID da planilha
-			range: range, // 'test' é o nome da aba e 'A1:C2' é o range
-			valueInputOption: 'RAW',
+			spreadsheetId: spreadsheetId, // ID da planilha
+			range: `${tabName}!${range}`, // 'tabName' é o nome da aba e 'A1:C2' é o range
+			valueInputOption,
 			requestBody: resource,
 		})
 

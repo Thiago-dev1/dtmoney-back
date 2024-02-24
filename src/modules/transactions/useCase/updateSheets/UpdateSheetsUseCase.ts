@@ -13,11 +13,23 @@ class UpdateSheetsUseCase {
 		private googleSheets: GoogleSheets,
 	) {}
 
-	async execute(userId: string) {
-		const transactions = await this.transactionRepository.list(userId, {
-			collum: 'createAt',
-			direction: 'asc',
-		})
+	async execute(
+		userId: string,
+		spreadsheetId: string,
+		tabName: string,
+		tableShort = { collum: 'createAt', direction: 'asc' },
+	) {
+		if (!spreadsheetId || !tabName) {
+			console.error(
+				`[UpdateSheetsUseCase] -> SpreadsheetId e tabName são obrigatórios ${userId}`,
+			)
+			throw new Error('SpreadsheetId e tabName são obrigatórios')
+		}
+
+		const transactions = await this.transactionRepository.list(
+			userId,
+			tableShort,
+		)
 
 		/**
 		 * Formatar as transações para o formato do google sheets
@@ -34,7 +46,9 @@ class UpdateSheetsUseCase {
 			]
 		})
 
-		await this.googleSheets.writeSheet(data)
+		const range = 'A2:E' + (data.length + 1)
+
+		await this.googleSheets.writeSheet(data, spreadsheetId, range, tabName)
 	}
 }
 

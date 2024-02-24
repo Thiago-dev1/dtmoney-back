@@ -29,6 +29,11 @@ const schema = new mongoose.Schema({
 		type: String,
 		required: false,
 	},
+	// Nome da aba que será criada do google sheets
+	tabName: {
+		type: String,
+		required: false,
+	},
 })
 
 // o mongoose irá criar uma collection com o nome transactions

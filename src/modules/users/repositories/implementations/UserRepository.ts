@@ -17,7 +17,6 @@ class UserRepository implements IUserRepository {
 		typeLogin,
 		password,
 		picture,
-		_id,
 	}: IUser): Promise<IUser> {
 		const user = await this.repository.create({
 			email,

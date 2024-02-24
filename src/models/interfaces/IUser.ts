@@ -11,4 +11,10 @@ export default interface IUser {
 		| 'linkedin'
 	password?: string
 	_id?: string
+	spreadsheetId?: string
+	tabName?: string
 }
+/** @TODO
+ * utlizar Omit, Pick e Partial para implementar outras interfaces
+ *
+ */
