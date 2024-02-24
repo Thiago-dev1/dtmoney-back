@@ -1,12 +1,19 @@
+import { FilterQuery } from 'mongoose'
 import { TransactionModel } from '../../../../models/transaction'
 import {
 	ISummary,
 	ITableShort,
 	ITransactionDTO,
 	ITransactionRepository,
+	Transaction,
 } from '../ITransactionRepository'
 
 class MongooseTransactionRepository implements ITransactionRepository {
+	async find(filter: FilterQuery<Transaction>): Promise<Transaction[]> {
+		return TransactionModel.find(filter)
+			.populate('category', 'title')
+			.lean()
+	}
 	async create({
 		title,
 		amount,

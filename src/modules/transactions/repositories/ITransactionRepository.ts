@@ -1,3 +1,5 @@
+import { FilterQuery } from 'mongoose'
+
 export type Transaction = {
 	id: string
 	title: string
@@ -55,6 +57,7 @@ interface ITransactionRepository {
 		skip?: number,
 	): Promise<IResponseList>
 	summary(userId: string): Promise<ISummary>
+	find(filter: FilterQuery<Transaction>): Promise<Transaction[]>
 }
 
 export {

@@ -1,8 +1,10 @@
+import { FilterQuery } from 'mongoose'
 import {
 	ISummary,
 	ITableShort,
 	ITransactionDTO,
 	ITransactionRepository,
+	Transaction,
 } from '../ITransactionRepository'
 import transactionRepositoryFactory from './transactionRepositoryFactory'
 
@@ -12,6 +14,9 @@ class TransactionRepository implements ITransactionRepository {
 	constructor() {
 		this.repository =
 			transactionRepositoryFactory.createRepository('mongoose')
+	}
+	async find(filter: FilterQuery<Transaction>): Promise<Transaction[]> {
+		return this.repository.find(filter)
 	}
 
 	async create({
