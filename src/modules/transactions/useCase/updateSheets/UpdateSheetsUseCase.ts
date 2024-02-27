@@ -1,7 +1,10 @@
 import { inject, injectable } from 'tsyringe'
 import { GoogleSheets } from '../../../../services/sheets/googleSheets'
 import dateUtil from '../../../../utils/date'
-import { ITransactionRepository } from '../../repositories/ITransactionRepository'
+import {
+	ITableShort,
+	ITransactionRepository,
+} from '../../repositories/ITransactionRepository'
 
 @injectable()
 class UpdateSheetsUseCase {
@@ -29,7 +32,7 @@ class UpdateSheetsUseCase {
 
 			const transactions = await this.transactionRepository.list(
 				userId,
-				tableShort,
+				tableShort as ITableShort,
 			)
 
 			/**
@@ -59,10 +62,10 @@ class UpdateSheetsUseCase {
 			return data
 		} catch (error) {
 			console.error(
-				`[UpdateSheetsUseCase] -> Erro ao atualizar planilha ${userId}`,
-				error,
+				`[UpdateSheetsUseCase] -> Erro ao atualizar planilha ${userId} ${error.message || error}`,
 			)
-			throw new Error('Erro ao atualizar planilha')
+
+			throw error
 		}
 	}
 }

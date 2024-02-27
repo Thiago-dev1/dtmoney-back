@@ -4,7 +4,14 @@ type ILocale = 'pt-br' | 'en-us' | 'es' | 'fr' | 'de' | 'it'
 
 class DateUtil {
 	formatDate(date: Date, locale: ILocale = 'pt-br'): string {
-		return new Intl.DateTimeFormat(locale).format(date)
+		// Converte a data para UTC
+		// Converte a data para UTC
+		const utcDate = new Date(
+			Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
+		)
+		return new Intl.DateTimeFormat(locale, { timeZone: 'UTC' }).format(
+			utcDate,
+		)
 	}
 }
 
