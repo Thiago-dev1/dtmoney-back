@@ -1,7 +1,7 @@
 import { FilterQuery } from 'mongoose'
 
 export type Transaction = {
-	id: string
+	_id: string
 	title: string
 	amount: number
 	category: {
