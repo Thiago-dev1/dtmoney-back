@@ -5,7 +5,7 @@ import { CreateTransactionUseCase } from './CreateTransactionUseCase'
 
 class CreateTransactionController {
 	async handle(request: Request, response: Response): Promise<Response> {
-		const { title, amount, category, type } = request.body
+		const { title, amount, category, type, installments, isRecurrent } = request.body
 		const userId = request.userGoogle._id
 
 		const createTransactionUseCase = container.resolve(
@@ -18,6 +18,8 @@ class CreateTransactionController {
 			category,
 			type,
 			userId,
+			installments,
+			isRecurrent,
 		})
 
 		return response.status(201).send()

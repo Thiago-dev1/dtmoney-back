@@ -19,6 +19,9 @@ interface ITransactionDTO {
 	category: string
 	type: string
 	userId: string
+	isRecurrent?: boolean
+	installments?: number
+	dueDate?: Date
 }
 
 interface ISummary {
